@@ -18,9 +18,18 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                // Install PHP dependencies using Composer
+                sh 'cd /var/www/html/laravel'
+                sh 'composer install'
+            }
+        }
+
+
         stage('Run php command '){
             steps{
-                sh 'cd /var/www/html/laravel/'
+                sh 'cd /var/www/html/laravel'
                 sh 'php artisan optimize:clear'
                 sh 'php artisan optimize'
                 sh 'php artisan migrate'
@@ -31,4 +40,4 @@ pipeline {
         }
 
     }
-}
+
