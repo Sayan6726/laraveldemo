@@ -20,7 +20,7 @@ pipeline {
 
         stage('Run php command '){
             steps{
-		sh 'composer install''
+                sh 'cd /var/www/html/laravel/'
                 sh 'php artisan optimize:clear'
                 sh 'php artisan optimize'
                 sh 'php artisan migrate'
@@ -32,8 +32,3 @@ pipeline {
 
     }
 }
-
-
-
-
-
