@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Pull Code') {
+            steps {
+                // Clean workspace before pulling the code (optional)
+                deleteDir()
+
+                // Clone the Git repository
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/Sayan6726/laraveldemo.git'
+            }
+        }
+
+        stage('Copy Project'){
+            steps{
+                sh 'cp -rf . /var/www/html/laravel'
+            }
+        }
+
+        stage('Run php command '){
+            steps{
+                sh 'php artisan optimize:clear'
+                sh 'php artisan optimize'
+                sh 'php artisan migrate'
+                sh 'php artisan db:seed'
+                sh 'npm install'
+
+            }
+        }
+
+    }
+}
+
+
+
+
+
